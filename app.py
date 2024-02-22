@@ -8,26 +8,27 @@ app.config['SECRET_KEY'] = "secret"
 
 debug = DebugToolbarExtension(app)
 
+INDEX = 0
+
 
 @app.get('/questions')
 def questions():
     """input form for story, renders form"""
-    ###
     website_prompts = story_collection[int(request.args.get('a'))].prompts
-    index_item = int(request.args.get('a'))
+    INDEX = int(request.args.get('a'))
     return render_template(
         'questions.html',
-        index_item=index_item,
+        INDEX=INDEX,
         website_prompts=website_prompts
     )
 
 
-@app.get("/results")
+@app.get("/results1")
 def result_page():
     """displays the result"""
-    created_story = story_collection[int(
-        request.args.get('a'))].get_result_text
-
+    created_story = story_collection[INDEX].get_result_text(request.args)
+    # created_story = story_collection[int(
+    #     request.args.get('a'))].get_result_text
     return render_template(
         'results.html',
         created_story=created_story
