@@ -50,3 +50,17 @@ excited_story = Story(
     ["noun", "verb"],
     """OMG!! OMG!! I love to {verb} a {noun}!"""
 )
+
+fun_story = Story(
+    ["adjective", "plural_noun"],
+    """I have never slept on top of some {plural_noun} but I believe
+     that would be very {adjective}!"""
+)
+
+scary_story = Story(
+    ["verb", "adjective", "noun"],
+    """There is a scary house I always {verb} and when I am {adjective}
+    I tend to grab my friend's {noun}"""
+)
+
+story_collection = [scary_story, fun_story, excited_story, silly_story]

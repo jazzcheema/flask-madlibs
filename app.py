@@ -1,31 +1,40 @@
 from flask import Flask, render_template, request
 from flask_debugtoolbar import DebugToolbarExtension
 
-from stories import silly_story
+from stories import silly_story, scary_story, fun_story, excited_story, story_collection
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "secret"
 
 debug = DebugToolbarExtension(app)
 
-#renders form in docstring
-@app.get('/')
-def home_page():
-    """homepage for madlibs website."""
-    website_prompts = silly_story.prompts
 
+@app.get('/questions')
+def questions():
+    """input form for story, renders form"""
+    ###
+    website_prompts = story_collection[int(request.args.get('a'))].prompts
+    index_item = int(request.args.get('a'))
     return render_template(
         'questions.html',
-        website_prompts = website_prompts
-        )
+        index_item=index_item,
+        website_prompts=website_prompts
+    )
+
 
 @app.get("/results")
 def result_page():
     """displays the result"""
-    created_story = silly_story.get_result_text(request.args)
+    created_story = story_collection[int(
+        request.args.get('a'))].get_result_text
 
     return render_template(
         'results.html',
-        created_story = created_story
+        created_story=created_story
     )
 
+
+@app.get('/')
+def home_page():
+    """homepage for madlibs website."""
+    return render_template('stories.html')
