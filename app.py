@@ -23,12 +23,10 @@ def questions():
     )
 
 
-@app.get("/results1")
-def result_page():
+@app.get("/results<int:INDEX>")
+def result_page(INDEX):
     """displays the result"""
     created_story = story_collection[INDEX].get_result_text(request.args)
-    # created_story = story_collection[int(
-    #     request.args.get('a'))].get_result_text
     return render_template(
         'results.html',
         created_story=created_story
